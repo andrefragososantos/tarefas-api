@@ -19,7 +19,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public List<Usuario> listarUsuarios() {
+    public List<Usuario> listarUsuario() {
         return usuarioRepository.findAll();
     }
 
