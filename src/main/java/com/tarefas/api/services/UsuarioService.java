@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tarefas.api.dto.UsuarioDTO;
 import com.tarefas.api.entities.Usuario;
 import com.tarefas.api.repositories.UsuarioRepository;
 
@@ -24,8 +25,14 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> buscarUsuario(Long id) {
-        return usuarioRepository.findById(id);
+    public UsuarioDTO buscarUsuario(Long id) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+
+        if(usuarioOpt.isPresent()) {
+            return usuarioOpt.get().converterParaDTO();
+        }
+
+        return null;
     }
 
     public void deletarUsuario(Long id) {
