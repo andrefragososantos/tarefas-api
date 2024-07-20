@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,5 +31,9 @@ public class Tarefa {
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private LocalDate dataEntrega;
+
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "usuario_id")
+    private Usuario responsavel;
     
 }
