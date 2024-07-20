@@ -37,7 +37,7 @@ public class TarefaService {
     }
 
     public List<Tarefa> buscarTarefaPeloTitulo(String titulo) {
-        return tarefaRepository.findByTituloLike(titulo);
+        return tarefaRepository.findByTituloLike("%" + titulo + "%");
     }
 
     public List<Tarefa> buscarTarefaPelaDataEntrega(LocalDate dataInicio, LocalDate dataFim) {

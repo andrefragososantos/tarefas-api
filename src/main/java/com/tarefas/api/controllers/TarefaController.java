@@ -1,5 +1,6 @@
 package com.tarefas.api.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tarefas.api.entities.Tarefa;
@@ -45,6 +47,23 @@ public class TarefaController {
         return ResponseEntity.ok().body(tarefa.get());
     }
 
+    @GetMapping("/responsavel/{id}")
+    public ResponseEntity<List<Tarefa>> buscarUsuarioPeloResponsavel(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(tarefaService.buscarTarefaPeloResposavel(id));
+    }
+
+    @GetMapping("titulo/{titulo}")
+    public ResponseEntity<List<Tarefa>> buscarTarefaPeloTitulo(@PathVariable("titulo") String titulo) {
+        return ResponseEntity.ok().body(tarefaService.buscarTarefaPeloTitulo(titulo));
+    }
+
+    @GetMapping("/data")
+    public ResponseEntity<List<Tarefa>> filtrarTarefaPelaDataEntrega(
+        @RequestParam("dataInicio") LocalDate dataInicio, 
+        @RequestParam("dataFim") LocalDate dataFim) {
+            return ResponseEntity.ok().body(tarefaService.buscarTarefaPelaDataEntrega(dataInicio, dataFim));
+        }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleterUsuarioPorId(@PathVariable("id") Long id) {
         Optional<Tarefa> tarefa = tarefaService.buscarTarefa(id);
@@ -67,6 +86,7 @@ public class TarefaController {
         tarefaAtualizada.setId(id);
         return ResponseEntity.ok().body(tarefaService.salvarTarefa(tarefaAtualizada));
     }
+
 
 
     

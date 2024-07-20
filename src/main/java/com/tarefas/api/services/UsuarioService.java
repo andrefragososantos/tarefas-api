@@ -37,7 +37,7 @@ public class UsuarioService {
     }
 
     public List<Usuario> buscarUsuarioPeloNome(String nome) {
-        return usuarioRepository.findByNomeLike(nome);
+        return usuarioRepository.findByNomeLike("%" + nome +"%");
     }
 
     public List<Usuario> buscarUsuarioPelaDataNascimento(LocalDate dataInicio, LocalDate dataFim) {
